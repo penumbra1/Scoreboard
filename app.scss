@@ -1,0 +1,241 @@
+/* COLORS */
+$background: #22223B;
+$bodyBackground: #d5d5d5;
+
+$grey: #a2a2a2;
+$aqua: #94fce4;
+$yellow: #f0ffb8;
+$rose: #c91465;
+$red: #f2303a;
+$green: #30f297;
+$violet: transparentize($rose, 0.95);
+// $violet: transparentize(#973998, 0.9);
+$light: #fafafa;
+$dark: #34344a;
+
+/* SIZES */
+$fixed-width: 220px;
+$section-padding: 10px 15px;
+
+/* ELEMENTS */
+$border: 2px solid $dark;
+
+@mixin transition {
+    transition: 0.2s ease-in-out;
+}
+
+%section-title {
+    font-size: .7em;
+    font-weight: normal;
+    letter-spacing: 2px;
+}
+
+%control {
+    margin: 8px 5px;
+    padding: 7px 8px;
+    background-color: $background;
+    border-radius: 5px;
+    border: $border;
+    outline: none;
+    color: $grey;
+    letter-spacing: 2px;
+    font-weight: bold;
+    text-shadow: none;
+    text-transform: uppercase;
+    @include transition;
+}
+
+%button {
+    font-family: "Open Sans";
+    &:hover {
+      border-color: transparentize($light, 0.2);
+      color: $light;
+      cursor: pointer;
+    }
+}
+
+@mixin action($color) {
+    color: $color;
+    @include transition;
+
+    &:hover {
+        color: darken($color, 15%);
+        cursor: pointer;
+    }
+}
+
+body {
+  background: $bodyBackground;
+  font-family: "Raleway";
+  color: $grey;
+  text-transform: uppercase;
+}
+
+.scoreboard {
+  background: $background;
+  width: 700px;
+  margin: 70px auto;
+  box-shadow: 0 0 10px darken($background, 10%);
+  border-radius: 15px;
+}
+
+.header {
+  padding: $section-padding;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  border-bottom: $border;
+
+  & h1 {
+      margin: 0;
+      flex-grow: 1;
+      font-family: "Amatic SC";
+      font-size: 3em;
+      letter-spacing: 4px;
+      font-weight: normal;
+      color: $aqua;
+  }
+}
+
+.stats {
+  width: $fixed-width;
+  display: flex;
+  justify-content: center;
+  line-height: 1.4em;
+
+  & td:first-child {
+    @extend %section-title;
+    text-align: right;
+  }
+
+  & td:last-child {
+    color: $yellow;
+    text-align: left;
+  }
+}
+
+.stopwatch {
+  width: $fixed-width;
+  border-radius: 0 15px 0 0;
+
+  & div {
+      color: $aqua;
+      font-size: 2em;
+      text-align: left;
+      margin-left: 38%;
+  }
+
+  & button {
+    @extend %control;
+    @extend %button;
+  }
+
+  & h2 {
+    @extend %section-title;
+    margin: 8px 0 0 0;
+  }
+}
+
+.player {
+  display: flex;
+  align-items: center;
+  padding: $section-padding;
+  border-bottom: $border;
+  font-size: 1.2em;
+  letter-spacing: 2px;
+  color: $yellow;
+  background-color: $violet;
+}
+
+  .remove-player {
+    opacity: 0;
+    margin-right: 10px;
+    color: $rose;
+    cursor: pointer;
+    @include transition;
+  }
+
+  .player-name:hover .remove-player {
+    opacity: 1;
+  }
+
+  .player-name {
+    flex-grow: 1;
+
+    & i {
+        color: $rose;
+        margin-left: 10px;
+    }
+  }
+
+  .player-score {
+    width: $fixed-width;
+  }
+
+  .counter {
+    display: flex;
+    align-items: center;
+  }
+
+  .counter-action {
+    border: none;
+    font-weight: bold;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+
+    &.increment {
+      @include action($green);
+      padding-right: 10px;
+    }
+
+    &.decrement {
+      @include action($red);
+      padding-left: 10px;
+    }
+  }
+
+  .counter-score {
+    flex-grow: 1;
+    text-align: center;
+    padding: 5px;
+    font-size: 2em;
+
+    & input {
+        width: 100%;
+        background: transparent;
+        color: $yellow;
+        border: none;
+        outline: none;
+        padding: 0;
+        text-align: center;
+        font-family: inherit;
+        font-size: 1em;
+    }
+  }
+
+.add-player-form form {
+  display: flex;
+  width: 65%;
+  padding: $section-padding;
+}
+
+  .add-player-form input[type=text] {
+    @extend %control;
+    flex-grow: 1;
+  }
+
+  .add-player-form input[type=text]::-webkit-input-placeholder{
+    color: $grey;
+    letter-spacing: 2px;
+  }
+
+  .add-player-form input[type=text]:focus{
+    background-color: $violet;
+  }
+
+  .add-player-form input[type=submit] {
+    @extend %control;
+    @extend %button;
+  }
